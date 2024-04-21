@@ -1,6 +1,10 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, Fragment, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { increment, incrementAsync, selectCount } from '../productSlice';
+import {
+  fetchAllProductsAsync,
+  selectAllProducts,
+  selectCount,
+} from '../productSlice';
 
 import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
@@ -74,13 +78,15 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-
-
 export default function ProductList() {
-  const count = useSelector(selectCount);
   const dispatch = useDispatch();
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
+  const products = useSelector(selectAllProducts);
+
+  useEffect(() =>{
+    dispatch(fetchAllProductsAsync())
+  },[dispatch])
   return (
     <div>
       <div>
