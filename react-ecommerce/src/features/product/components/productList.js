@@ -24,9 +24,9 @@ import {
 import { Link } from 'react-router-dom';
 
 const sortOptions = [
-  { name: 'Best Rating', sort: 'rating', order: 'desc', current: false },
-  { name: 'Price: Low to High', sort: 'price', order: 'asc', current: false },
-  { name: 'Price: High to Low', sort: 'price', order: 'desc', current: false },
+  { name: 'Best Rating', sort: '-rating', current: false },
+  { name: 'Price: Low to High', sort: 'price', current: false },
+  { name: 'Price: High to Low', sort: '-price', current: false },
 ];
 const subCategories = [
   { name: 'Totes', href: '#' },
@@ -263,7 +263,7 @@ export default function ProductList() {
     console.log(section.id, option.value);
   };
   const handleSort = (e, option) => {
-    const newFilter = { ...filter, _sort: option.sort, _order: option.order };
+    const newFilter = { ...filter, _sort: option.sort };
     setFilter(newFilter);
     dispatch(fetchProductsByFiltersAsync(newFilter));
   };
